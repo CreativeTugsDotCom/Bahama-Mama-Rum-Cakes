@@ -1,0 +1,1111 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bahama Mama Rum Cakes | Handcrafted Caribbean Rum Cakes & Gourmet Gifts</title>
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            rum: {
+              50: '#FDFBF7',
+              100: '#F7F2E8',
+              200: '#EBDCBF',
+              500: '#C08137',
+              700: '#8B4513',
+              800: '#68320B',
+              900: '#3D1C05',
+            },
+            ocean: {
+              50: '#F0F9F9',
+              100: '#CCECEB',
+              500: '#2A8C82',
+              700: '#0D6E6E',
+              900: '#084444',
+            },
+            coral: {
+              500: '#E07A5F',
+              600: '#C85A3F',
+            },
+            sand: '#FAF6EE',
+            espresso: '#1A0F0A'
+          },
+          fontFamily: {
+            serif: ['Cormorant Garamond', 'Georgia', 'serif'],
+            sans: ['Plus Jakarta Sans', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- Alpine.js CDN -->
+  <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+  <style>
+    [x-cloak] { display: none !important; }
+    .bg-texture {
+      background-color: #FAF6EE;
+      background-image: radial-gradient(#8B4513 0.4px, transparent 0.4px), radial-gradient(#8B4513 0.4px, #FAF6EE 0.4px);
+      background-size: 16px 16px;
+      background-position: 0 0, 8px 8px;
+      background-opacity: 0.03;
+    }
+    .custom-scrollbar::-webkit-scrollbar {
+      width: 6px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-track {
+      background: #F7F2E8;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background: #C08137;
+      border-radius: 3px;
+    }
+  </style>
+</head>
+<body 
+  x-data="shopStore()" 
+  x-init="initStore()"
+  class="font-sans bg-sand text-espresso antialiased custom-scrollbar selection:bg-rum-500 selection:text-white"
+>
+
+  <!-- ==================== ANNOUNCEMENT BAR ==================== -->
+  <div x-data="{ show: true }" x-show="show" class="bg-rum-900 text-amber-100 text-xs py-2 px-4 relative z-50 transition-all">
+    <div class="max-w-7xl mx-auto flex justify-between items-center text-center">
+      <div class="hidden sm:flex items-center space-x-2 text-xs text-amber-300">
+        <i data-lucide="shield-check" class="w-3.5 h-3.5"></i>
+        <span>Authentic Caribbean Rum • 21+ Adult Treat</span>
+      </div>
+      
+      <div class="flex-1 text-center font-medium tracking-wide">
+        <span>🎉 FREE RUM CAKE WITH PURCHASE OF 3 OR MORE</span>
+        <span class="mx-2 opacity-50">|</span>
+        <span>Use Code: <span class="underline font-bold text-amber-300 cursor-pointer" @click="copyCode('HIRCLOVE')">HIRCLOVE</span></span>
+      </div>
+
+      <div class="hidden md:flex items-center space-x-4">
+        <span class="text-amber-200/80">Ships USA & Worldwide</span>
+        <button @click="show = false" class="hover:text-white opacity-70 hover:opacity-100" aria-label="Dismiss announcement">
+          <i data-lucide="x" class="w-3.5 h-3.5"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== HEADER / NAV ==================== -->
+  <header x-data="{ isScrolled: false }" 
+          @scroll.window="isScrolled = (window.pageYOffset > 20)"
+          :class="isScrolled ? 'bg-sand/95 backdrop-blur-md shadow-md py-3' : 'bg-sand py-5'"
+          class="sticky top-0 z-40 transition-all duration-300 border-b border-rum-900/10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between">
+        
+        <!-- Mobile Navigation Toggle -->
+        <button @click="mobileMenuOpen = true" class="lg:hidden p-2 text-rum-900 hover:text-rum-700" aria-label="Open Mobile Menu">
+          <i data-lucide="menu" class="w-6 h-6"></i>
+        </button>
+
+        <!-- Brand Identity Logo -->
+        <a href="#" class="flex flex-col items-center group">
+          <span class="font-serif text-2xl sm:text-3xl font-bold tracking-tight text-rum-900 group-hover:text-rum-700 transition">
+            BAHAMA MAMA
+          </span>
+          <span class="text-[9px] uppercase tracking-[0.25em] font-semibold text-ocean-700 -mt-1">
+            RUM CAKES • THE BAHAMAS
+          </span>
+        </a>
+
+        <!-- Desktop Navigation Menu -->
+        <nav class="hidden lg:flex items-center space-x-8 text-sm font-medium tracking-wide text-espresso">
+          
+          <!-- Shop Dropdown Trigger -->
+          <div class="relative group" x-data="{ open: false }" @mouseleave="open = false">
+            <button @mouseover="open = true" @click="open = !open" class="flex items-center space-x-1 py-2 hover:text-rum-700 transition">
+              <span>SHOP FLAVORS</span>
+              <i data-lucide="chevron-down" class="w-4 h-4 text-rum-500"></i>
+            </button>
+
+            <!-- Mega Menu Dropdown -->
+            <div x-show="open" x-cloak 
+                 x-transition:enter="transition ease-out duration-150"
+                 x-transition:enter-start="opacity-0 translate-y-2"
+                 x-transition:enter-end="opacity-100 translate-y-0"
+                 class="absolute top-full left-0 w-[640px] bg-white rounded-xl shadow-2xl border border-rum-900/10 p-6 grid grid-cols-3 gap-6 z-50">
+              
+              <div>
+                <h4 class="font-serif text-lg font-bold text-rum-900 mb-3 border-b pb-1 border-rum-100">Signature Rum Cakes</h4>
+                <ul class="space-y-2 text-xs">
+                  <li><a href="#flavors" @click="filterCategory('all')" class="hover:text-rum-700 font-medium">All 27 Flavors</a></li>
+                  <li><a href="#flavors" @click="filterCategory('classic')" class="hover:text-rum-700">Original Bahamian Rum</a></li>
+                  <li><a href="#flavors" @click="filterCategory('fruity')" class="hover:text-rum-700">Piña Colada & Pineapple</a></li>
+                  <li><a href="#flavors" @click="filterCategory('spiced')" class="hover:text-rum-700">Vanilla Pecan & Cinnamon</a></li>
+                  <li><a href="#flavors" @click="filterCategory('creamy')" class="hover:text-rum-700">Haitian Cremas & Amaretto</a></li>
+                  <li><a href="#flavors" @click="filterCategory('decadent')" class="hover:text-rum-700">Red Velvet & Chocolate</a></li>
+                </ul>
+              </div>
+
+              <div>
+                <h4 class="font-serif text-lg font-bold text-rum-900 mb-3 border-b pb-1 border-rum-100">Gifting & Samplers</h4>
+                <ul class="space-y-2 text-xs">
+                  <li><a href="#sampler" class="hover:text-rum-700 font-bold text-coral-600">Build Your 6-Pack Sampler</a></li>
+                  <li><a href="#gifting" class="hover:text-rum-700">Souvenir Gift Boxes</a></li>
+                  <li><a href="#gifting" class="hover:text-rum-700">Corporate & Event Gifts</a></li>
+                  <li><a href="#gifting" class="hover:text-rum-700">Digital Gift Cards</a></li>
+                </ul>
+              </div>
+
+              <div class="bg-sand p-4 rounded-lg flex flex-col justify-between border border-rum-200">
+                <div>
+                  <span class="text-[10px] font-bold text-ocean-700 uppercase tracking-widest">Island Pantry</span>
+                  <h5 class="font-serif font-bold text-rum-900 text-sm mt-1">Authentic Sauces & Honeys</h5>
+                  <p class="text-[11px] text-gray-600 mt-1">Junkanoo Pepper Sauce, Guava Duff & Infused Honeys.</p>
+                </div>
+                <a href="#pantry" class="text-xs font-bold text-rum-700 hover:underline mt-3 inline-flex items-center">
+                  Shop Pantry <i data-lucide="arrow-right" class="w-3 h-3 ml-1"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <a href="#sampler" class="hover:text-rum-700 transition">SAMPLER PACKS</a>
+          <a href="#gifting" class="hover:text-rum-700 transition">GIFTING</a>
+          <a href="#wholesale" class="hover:text-rum-700 transition">WHOLESALE</a>
+          <a href="#story" class="hover:text-rum-700 transition">OUR CRAFT</a>
+          <a href="#locations" class="hover:text-rum-700 transition">LOCATIONS</a>
+        </nav>
+
+        <!-- Right Action Utility Icons -->
+        <div class="flex items-center space-x-5">
+          
+          <button @click="searchOpen = true" class="text-espresso hover:text-rum-700 transition" aria-label="Search Catalog">
+            <i data-lucide="search" class="w-5 h-5"></i>
+          </button>
+
+          <a href="#locations" class="hidden sm:flex items-center text-xs font-semibold text-ocean-700 hover:text-ocean-900 bg-ocean-50 px-3 py-1.5 rounded-full border border-ocean-100">
+            <i data-lucide="map-pin" class="w-3.5 h-3.5 mr-1"></i>
+            <span>Pickup / Bimini Factory</span>
+          </a>
+
+          <!-- Cart Icon Trigger -->
+          <button @click="cartDrawerOpen = true" class="relative text-espresso hover:text-rum-700 transition" aria-label="Open Cart Drawer">
+            <i data-lucide="shopping-bag" class="w-6 h-6"></i>
+            <span x-show="cart.length > 0" x-text="cartTotalCount()" 
+                  class="absolute -top-1.5 -right-2 bg-coral-500 text-white font-bold text-[10px] w-5 h-5 rounded-full flex items-center justify-center shadow">
+            </span>
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </header>
+
+  <!-- ==================== SEARCH OVERLAY ==================== -->
+  <div x-show="searchOpen" x-cloak 
+       x-transition:enter="transition ease-out duration-200"
+       x-transition:enter-start="opacity-0"
+       x-transition:enter-end="opacity-100"
+       class="fixed inset-0 z-50 bg-espresso/60 backdrop-blur-sm flex items-start justify-center pt-20 px-4">
+    <div @click.away="searchOpen = false" class="bg-white w-full max-w-2xl rounded-2xl shadow-2xl p-6 border border-rum-200">
+      <div class="flex items-center justify-between border-b pb-4 border-gray-100">
+        <div class="flex items-center space-x-3 flex-1">
+          <i data-lucide="search" class="w-5 h-5 text-rum-500"></i>
+          <input type="text" x-model="searchQuery" placeholder="Search rum cake flavors, sauces, gifts..." 
+                 class="w-full text-lg border-none focus:outline-none focus:ring-0 text-espresso placeholder-gray-400">
+        </div>
+        <button @click="searchOpen = false" class="p-1 hover:bg-gray-100 rounded-full">
+          <i data-lucide="x" class="w-5 h-5 text-gray-500"></i>
+        </button>
+      </div>
+
+      <!-- Quick Search Suggestions -->
+      <div class="mt-4">
+        <p class="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">Popular Searches</p>
+        <div class="flex flex-wrap gap-2">
+          <button @click="searchQuery = 'Pina Colada'" class="text-xs bg-sand hover:bg-rum-100 text-rum-900 px-3 py-1.5 rounded-lg border border-rum-200">Piña Colada</button>
+          <button @click="searchQuery = 'Vanilla Pecan'" class="text-xs bg-sand hover:bg-rum-100 text-rum-900 px-3 py-1.5 rounded-lg border border-rum-200">Vanilla Pecan</button>
+          <button @click="searchQuery = 'Sampler'" class="text-xs bg-sand hover:bg-rum-100 text-rum-900 px-3 py-1.5 rounded-lg border border-rum-200">Custom Sampler 6-Pack</button>
+          <button @click="searchQuery = 'Guava Duff'" class="text-xs bg-sand hover:bg-rum-100 text-rum-900 px-3 py-1.5 rounded-lg border border-rum-200">Bahamian Guava Duff</button>
+        </div>
+      </div>
+
+      <!-- Dynamic Search Results List -->
+      <div x-show="searchQuery.length > 0" class="mt-6 max-h-80 overflow-y-auto space-y-3">
+        <template x-for="product in filteredProducts()" :key="product.id">
+          <div @click="openQuickView(product); searchOpen = false" class="flex items-center space-x-4 p-2 hover:bg-sand rounded-xl cursor-pointer transition">
+            <img :src="product.image" :alt="product.title" class="w-12 h-12 object-cover rounded-lg">
+            <div class="flex-1">
+              <h5 class="font-serif font-bold text-rum-900" x-text="product.title"></h5>
+              <p class="text-xs text-gray-500" x-text="product.descriptor"></p>
+            </div>
+            <span class="font-bold text-sm text-rum-700" x-text="'$' + product.price.toFixed(2)"></span>
+          </div>
+        </template>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== HERO SECTION ==================== -->
+  <section class="relative bg-rum-900 text-sand overflow-hidden py-20 lg:py-28">
+    <!-- Atmospheric Background Image with Overlay -->
+    <div class="absolute inset-0 opacity-25 mix-blend-overlay">
+      <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=1800&q=80" 
+           alt="Caribbean Rum Cake Atmosphere" class="w-full h-full object-cover">
+    </div>
+    
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        
+        <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
+          
+          <div class="inline-flex items-center space-x-2 bg-rum-800/80 border border-rum-500/30 px-3.5 py-1.5 rounded-full text-xs text-amber-200">
+            <span class="w-2 h-2 rounded-full bg-coral-500 animate-pulse"></span>
+            <span class="font-semibold tracking-wider uppercase">Authentic Nassau & Bimini Recipe</span>
+          </div>
+
+          <h1 class="font-serif text-4xl sm:text-6xl font-bold tracking-tight text-white leading-[1.1]">
+            A Taste of Paradise. <br>
+            <span class="text-amber-300 italic font-normal">A Shot in Every Bite.</span>
+          </h1>
+
+          <p class="text-lg text-amber-100/90 max-w-2xl font-light leading-relaxed">
+            Handcrafted Caribbean rum cakes baked with premium aged rum, slow-glazed for decadent moisture, and vacuum-sealed straight from the islands to your doorstep.
+          </p>
+
+          <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-4">
+            <a href="#flavors" class="w-full sm:w-auto bg-coral-500 hover:bg-coral-600 text-white font-bold px-8 py-4 rounded-xl shadow-lg transition text-center flex items-center justify-center space-x-2">
+              <span>EXPLORE ALL 27 FLAVORS</span>
+              <i data-lucide="arrow-right" class="w-4 h-4"></i>
+            </a>
+
+            <a href="#sampler" class="w-full sm:w-auto border border-amber-300/40 hover:bg-white/10 text-amber-200 font-semibold px-8 py-4 rounded-xl transition text-center">
+              BUILD A 6-PACK SAMPLER
+            </a>
+          </div>
+
+          <!-- Trust Subtext -->
+          <div class="pt-6 border-t border-rum-800 flex flex-wrap justify-center lg:justify-start gap-6 text-xs text-amber-200/70">
+            <div class="flex items-center space-x-1.5">
+              <i data-lucide="check-circle" class="w-4 h-4 text-coral-500"></i>
+              <span>9-Month Vacuum Freshness</span>
+            </div>
+            <div class="flex items-center space-x-1.5">
+              <i data-lucide="check-circle" class="w-4 h-4 text-coral-500"></i>
+              <span>Contains Real Caribbean Rum</span>
+            </div>
+            <div class="flex items-center space-x-1.5">
+              <i data-lucide="check-circle" class="w-4 h-4 text-coral-500"></i>
+              <span>Ships Domestic & International</span>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Featured Product Spotlight Hero Card -->
+        <div class="lg:col-span-5">
+          <div class="bg-gradient-to-b from-sand to-white text-espresso p-6 rounded-3xl shadow-2xl border border-rum-200 relative">
+            <div class="absolute -top-3 -right-3 bg-coral-500 text-white text-xs font-bold px-3 py-1 rounded-full shadow">
+              #1 BEST SELLER
+            </div>
+
+            <img src="https://images.unsplash.com/photo-1588195538326-c5b1e9f80a1b?auto=format&fit=crop&w=800&q=80" 
+                 alt="Original Bahamian Rum Cake" class="w-full h-64 object-cover rounded-2xl shadow-md mb-5">
+
+            <div class="space-y-2">
+              <div class="flex justify-between items-start">
+                <div>
+                  <h3 class="font-serif text-2xl font-bold text-rum-900">Original Bahamian Rum Cake</h3>
+                  <p class="text-xs text-gray-500">Golden vanilla pound cake soaked in aged dark rum glaze</p>
+                </div>
+                <span class="text-xl font-bold text-rum-700">$10.00</span>
+              </div>
+
+              <div class="flex items-center space-x-2 text-xs text-amber-600 pt-1">
+                <div class="flex text-amber-500">★ ★ ★ ★ ★</div>
+                <span class="font-bold text-gray-700">4.9/5</span>
+                <span class="text-gray-400">(142 reviews)</span>
+              </div>
+
+              <!-- Quick Size Selector -->
+              <div class="pt-3">
+                <label class="text-[11px] font-bold text-gray-500 uppercase tracking-wider block mb-1">Select Size</label>
+                <div class="grid grid-cols-3 gap-2">
+                  <button class="text-xs border-2 border-rum-700 bg-rum-50 font-bold py-1.5 rounded-lg text-rum-900">4 oz Personal</button>
+                  <button class="text-xs border border-gray-200 hover:border-rum-500 py-1.5 rounded-lg text-gray-600">32 oz Family</button>
+                  <button class="text-xs border border-gray-200 hover:border-rum-500 py-1.5 rounded-lg text-gray-600">55 oz Party</button>
+                </div>
+              </div>
+
+              <button @click="addToCart(products[0])" class="w-full mt-4 bg-rum-900 hover:bg-rum-800 text-white font-bold py-3.5 rounded-xl transition flex items-center justify-center space-x-2">
+                <i data-lucide="shopping-bag" class="w-4 h-4"></i>
+                <span>ADD TO CART • $10.00</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== TRUST / BENEFIT STRIP ==================== -->
+  <section class="bg-white border-y border-rum-900/10 py-6">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+        
+        <div class="flex flex-col items-center space-y-2">
+          <div class="w-10 h-10 rounded-full bg-sand flex items-center justify-center text-rum-700">
+            <i data-lucide="wine" class="w-5 h-5"></i>
+          </div>
+          <h4 class="font-serif font-bold text-sm text-rum-900">Real Aged Rum</h4>
+          <p class="text-xs text-gray-500">Authentic island spirit infused into every layer</p>
+        </div>
+
+        <div class="flex flex-col items-center space-y-2">
+          <div class="w-10 h-10 rounded-full bg-sand flex items-center justify-center text-rum-700">
+            <i data-lucide="package-check" class="w-5 h-5"></i>
+          </div>
+          <h4 class="font-serif font-bold text-sm text-rum-900">Vacuum Sealed Fresh</h4>
+          <p class="text-xs text-gray-500">Stays deliciously moist for up to 9 months</p>
+        </div>
+
+        <div class="flex flex-col items-center space-y-2">
+          <div class="w-10 h-10 rounded-full bg-sand flex items-center justify-center text-rum-700">
+            <i data-lucide="gift" class="w-5 h-5"></i>
+          </div>
+          <h4 class="font-serif font-bold text-sm text-rum-900">Ready To Gift</h4>
+          <p class="text-xs text-gray-500">Includes souvenir box & optional custom message</p>
+        </div>
+
+        <div class="flex flex-col items-center space-y-2">
+          <div class="w-10 h-10 rounded-full bg-sand flex items-center justify-center text-rum-700">
+            <i data-lucide="truck" class="w-5 h-5"></i>
+          </div>
+          <h4 class="font-serif font-bold text-sm text-rum-900">Fast Express Shipping</h4>
+          <p class="text-xs text-gray-500">Direct from our Bimini & South Florida bakeries</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== FLAVOR DISCOVERY MATRIX ==================== -->
+  <section id="flavors" class="py-16 md:py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center max-w-3xl mx-auto mb-12">
+      <span class="text-xs font-bold text-ocean-700 uppercase tracking-widest">Flavor Discovery</span>
+      <h2 class="font-serif text-3xl sm:text-5xl font-bold text-rum-900 mt-2">Explore Our Caribbean Flavors</h2>
+      <p class="text-gray-600 text-sm mt-3">From classic Nassau recipes to tropical fruit and rich dessert creations. Every cake is vacuum-sealed at peak freshness.</p>
+
+      <!-- Category Filter Pills -->
+      <div class="flex flex-wrap justify-center gap-2 mt-8">
+        <button @click="activeCategory = 'all'" 
+                :class="activeCategory === 'all' ? 'bg-rum-900 text-white' : 'bg-white text-gray-700 hover:bg-rum-100'"
+                class="px-4 py-2 rounded-full text-xs font-bold transition shadow-sm border border-rum-200">
+          All Flavors (27)
+        </button>
+        <button @click="activeCategory = 'classic'" 
+                :class="activeCategory === 'classic' ? 'bg-rum-900 text-white' : 'bg-white text-gray-700 hover:bg-rum-100'"
+                class="px-4 py-2 rounded-full text-xs font-bold transition shadow-sm border border-rum-200">
+          Classic & Heritage
+        </button>
+        <button @click="activeCategory = 'fruity'" 
+                :class="activeCategory === 'fruity' ? 'bg-rum-900 text-white' : 'bg-white text-gray-700 hover:bg-rum-100'"
+                class="px-4 py-2 rounded-full text-xs font-bold transition shadow-sm border border-rum-200">
+          Tropical Fruit
+        </button>
+        <button @click="activeCategory = 'spiced'" 
+                :class="activeCategory === 'spiced' ? 'bg-rum-900 text-white' : 'bg-white text-gray-700 hover:bg-rum-100'"
+                class="px-4 py-2 rounded-full text-xs font-bold transition shadow-sm border border-rum-200">
+          Nuts & Spices
+        </button>
+        <button @click="activeCategory = 'decadent'" 
+                :class="activeCategory === 'decadent' ? 'bg-rum-900 text-white' : 'bg-white text-gray-700 hover:bg-rum-100'"
+                class="px-4 py-2 rounded-full text-xs font-bold transition shadow-sm border border-rum-200">
+          Decadent & Desserts
+        </button>
+      </div>
+    </div>
+
+    <!-- Product Grid -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+      <template x-for="product in filteredProducts()" :key="product.id">
+        <div class="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition duration-300 border border-rum-900/10 flex flex-col group">
+          
+          <!-- Product Image & Badges -->
+          <div class="relative h-56 bg-sand overflow-hidden cursor-pointer" @click="openQuickView(product)">
+            <img :src="product.image" :alt="product.title" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+            
+            <template x-if="product.badge">
+              <span class="absolute top-3 left-3 bg-rum-900 text-amber-200 text-[10px] font-bold px-2.5 py-1 rounded-md uppercase tracking-wider shadow" x-text="product.badge"></span>
+            </template>
+
+            <template x-if="product.isSoldOut">
+              <span class="absolute top-3 right-3 bg-gray-900/90 text-white text-[10px] font-bold px-2.5 py-1 rounded-md uppercase">Sold Out</span>
+            </template>
+
+            <!-- Quick View Hover Button -->
+            <button class="absolute bottom-3 right-3 bg-white/90 hover:bg-white text-rum-900 p-2 rounded-full shadow opacity-0 group-hover:opacity-100 transition"
+                    title="Quick View">
+              <i data-lucide="eye" class="w-4 h-4"></i>
+            </button>
+          </div>
+
+          <!-- Card Content -->
+          <div class="p-5 flex-1 flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between text-xs text-amber-600 mb-1">
+                <span>★ <span x-text="product.rating"></span></span>
+                <span class="text-gray-400" x-text="'(' + product.reviews + ')'"></span>
+              </div>
+
+              <h3 class="font-serif font-bold text-lg text-rum-900 group-hover:text-rum-700 transition cursor-pointer" 
+                  @click="openQuickView(product)" 
+                  x-text="product.title"></h3>
+              
+              <p class="text-xs text-gray-500 mt-1 line-clamp-2" x-text="product.descriptor"></p>
+            </div>
+
+            <div class="mt-4 pt-4 border-t border-gray-100 flex items-center justify-between">
+              <div>
+                <span class="text-[10px] text-gray-400 block uppercase">Starting at</span>
+                <span class="font-bold text-rum-900 text-lg" x-text="'$' + product.price.toFixed(2)"></span>
+              </div>
+
+              <button @click="addToCart(product)" 
+                      :disabled="product.isSoldOut"
+                      :class="product.isSoldOut ? 'bg-gray-200 text-gray-400 cursor-not-allowed' : 'bg-coral-500 hover:bg-coral-600 text-white'"
+                      class="px-4 py-2 rounded-xl text-xs font-bold transition flex items-center space-x-1 shadow-sm">
+                <i data-lucide="plus" class="w-3.5 h-3.5"></i>
+                <span x-text="product.isSoldOut ? 'Sold Out' : 'Add'"></span>
+              </button>
+            </div>
+          </div>
+
+        </div>
+      </template>
+    </div>
+  </section>
+
+  <!-- ==================== BUILD YOUR 6-PACK SAMPLER WIDGET ==================== -->
+  <section id="sampler" class="bg-rum-900 text-sand py-20 border-y border-rum-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        
+        <div class="lg:col-span-5 space-y-5">
+          <span class="text-xs font-bold text-amber-300 uppercase tracking-widest">Interactive Sampler Box</span>
+          <h2 class="font-serif text-3xl sm:text-5xl font-bold text-white">Try The Islands In One Box</h2>
+          <p class="text-sm text-amber-100/80 leading-relaxed">
+            Can’t decide on just one flavor? Build your custom 6-pack of 4oz personal rum cakes. Perfect for family tastings, party favors, or discovering your personal favorite.
+          </p>
+
+          <!-- Sampler Counter Status -->
+          <div class="bg-rum-800 p-5 rounded-2xl border border-rum-700 space-y-3">
+            <div class="flex justify-between items-center text-xs font-bold">
+              <span>Selected Flavors: <span x-text="samplerList.length" class="text-amber-300 text-base"></span> / 6</span>
+              <span class="text-amber-200" x-text="samplerList.length === 6 ? 'Box Complete!' : 'Add ' + (6 - samplerList.length) + ' more'"></span>
+            </div>
+
+            <!-- Progress Bar -->
+            <div class="w-full bg-rum-900 h-3 rounded-full overflow-hidden p-0.5 border border-rum-700">
+              <div class="bg-gradient-to-r from-amber-400 to-coral-500 h-full rounded-full transition-all duration-300"
+                   :style="'width: ' + (samplerList.length / 6 * 100) + '%'"></div>
+            </div>
+
+            <!-- Selected Pills -->
+            <div class="flex flex-wrap gap-2 pt-2">
+              <template x-for="(item, idx) in samplerList" :key="idx">
+                <span class="inline-flex items-center text-xs bg-sand text-rum-900 font-semibold px-2.5 py-1 rounded-lg">
+                  <span x-text="item"></span>
+                  <button @click="removeFromSampler(idx)" class="ml-1.5 text-gray-500 hover:text-red-600">×</button>
+                </span>
+              </template>
+              <template x-if="samplerList.length === 0">
+                <span class="text-xs text-amber-200/50 italic">Click flavors on the right to fill your box...</span>
+              </template>
+            </div>
+          </div>
+
+          <div class="pt-2">
+            <button @click="addSamplerToCart()" 
+                    :disabled="samplerList.length !== 6"
+                    :class="samplerList.length === 6 ? 'bg-coral-500 hover:bg-coral-600 text-white' : 'bg-gray-700 text-gray-400 cursor-not-allowed'"
+                    class="w-full py-4 rounded-xl font-bold text-sm shadow-xl transition flex items-center justify-center space-x-2">
+              <i data-lucide="package" class="w-4 h-4"></i>
+              <span>ADD SAMPLER BOX TO CART • $37.75</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Flavor Picker Grid -->
+        <div class="lg:col-span-7 bg-sand text-espresso p-6 rounded-3xl border border-rum-200">
+          <h3 class="font-serif text-xl font-bold text-rum-900 mb-4 border-b pb-2">Select 6 Flavors for Your Box</h3>
+          
+          <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 max-h-96 overflow-y-auto pr-1">
+            <template x-for="p in products.filter(item => item.category !== 'pantry')" :key="p.id">
+              <div @click="addToSampler(p.title)"
+                   :class="samplerList.filter(x => x === p.title).length > 0 ? 'border-coral-500 bg-coral-50/50' : 'border-gray-200 bg-white hover:border-rum-500'"
+                   class="p-3 rounded-xl border-2 cursor-pointer transition flex flex-col justify-between">
+                <div>
+                  <h4 class="font-bold text-xs text-rum-900" x-text="p.title"></h4>
+                  <p class="text-[10px] text-gray-500 mt-0.5" x-text="p.descriptor"></p>
+                </div>
+                <div class="mt-2 flex items-center justify-between">
+                  <span class="text-[10px] font-bold text-coral-600" 
+                        x-text="samplerCount(p.title) > 0 ? samplerCount(p.title) + ' in box' : '+ Add'"></span>
+                  <i data-lucide="plus-circle" class="w-3.5 h-3.5 text-rum-500"></i>
+                </div>
+              </div>
+            </template>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==================== CARIBBEAN PANTRY SPOTLIGHT ==================== -->
+  <section id="pantry" class="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex flex-col md:flex-row md:items-end justify-between mb-12">
+      <div>
+        <span class="text-xs font-bold text-ocean-700 uppercase tracking-widest">Beyond Rum Cakes</span>
+        <h2 class="font-serif text-3xl sm:text-4xl font-bold text-rum-900 mt-1">The Caribbean Pantry</h2>
+        <p class="text-sm text-gray-600 mt-2 max-w-xl">
+          Authentic Bahamian sauces, artisan infused honeys, gourmet hot peppers, and traditional bakery delicacies.
+        </p>
+      </div>
+      <a href="#flavors" class="mt-4 md:mt-0 text-xs font-bold text-rum-700 hover:text-rum-900 flex items-center">
+        <span>View Full Pantry Catalog</span>
+        <i data-lucide="arrow-right" class="w-4 h-4 ml-1"></i>
+      </a>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      <template x-for="item in products.filter(p => p.category === 'pantry')" :key="item.id">
+        <div class="bg-white rounded-2xl overflow-hidden border border-rum-900/10 shadow-sm hover:shadow-md transition p-4 flex flex-col justify-between">
+          <div>
+            <img :src="item.image" :alt="item.title" class="w-full h-44 object-cover rounded-xl mb-3">
+            <span class="text-[10px] font-bold text-ocean-700 uppercase tracking-wider" x-text="item.badge"></span>
+            <h3 class="font-serif font-bold text-base text-rum-900 mt-1" x-text="item.title"></h3>
+            <p class="text-xs text-gray-500 mt-1" x-text="item.descriptor"></p>
+          </div>
+
+          <div class="mt-4 pt-3 border-t border-gray-100 flex items-center justify-between">
+            <span class="font-bold text-rum-900 text-sm" x-text="'$' + item.price.toFixed(2)"></span>
+            <button @click="addToCart(item)" class="bg-rum-900 hover:bg-rum-800 text-white text-xs font-bold px-3 py-1.5 rounded-lg transition">
+              Add to Order
+            </button>
+          </div>
+        </div>
+      </template>
+    </div>
+  </section>
+
+  <!-- ==================== WHOLESALE & CORPORATE GIFTING ==================== -->
+  <section id="wholesale" class="bg-sand border-y border-rum-200 py-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+        
+        <div class="lg:col-span-5 space-y-5">
+          <span class="text-xs font-bold text-ocean-700 uppercase tracking-widest">Business & Events</span>
+          <h2 class="font-serif text-3xl sm:text-4xl font-bold text-rum-900">Wholesale & Corporate Gifting</h2>
+          <p class="text-sm text-gray-600 leading-relaxed">
+            Partner with Bahama Mama Rum Cakes for resort retail, cruise line amenities, luxury gift baskets, wedding favors, and corporate appreciation gifts.
+          </p>
+
+          <div class="space-y-3 pt-2">
+            <div class="flex items-start space-x-3">
+              <div class="w-6 h-6 rounded-full bg-ocean-100 text-ocean-700 flex items-center justify-center text-xs font-bold mt-0.5">✓</div>
+              <div>
+                <h4 class="font-bold text-sm text-rum-900">Retail & Resort Buyers</h4>
+                <p class="text-xs text-gray-500">Master cases available with long 9-month shelf-life stability.</p>
+              </div>
+            </div>
+
+            <div class="flex items-start space-x-3">
+              <div class="w-6 h-6 rounded-full bg-ocean-100 text-ocean-700 flex items-center justify-center text-xs font-bold mt-0.5">✓</div>
+              <div>
+                <h4 class="font-bold text-sm text-rum-900">Custom Corporate Packaging</h4>
+                <p class="text-xs text-gray-500">Co-branded ribbons, customized gift notes, and multi-address shipping.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Wholesale Inquiry Form -->
+        <div class="lg:col-span-7 bg-white p-8 rounded-3xl shadow-sm border border-rum-200">
+          <h3 class="font-serif text-xl font-bold text-rum-900 mb-4">Request Wholesale Information</h3>
+          
+          <form @submit.prevent="submitWholesale()" class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-xs font-bold text-gray-700 mb-1">Contact Name *</label>
+              <input type="text" required class="w-full text-xs p-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-rum-500 focus:outline-none">
+            </div>
+
+            <div>
+              <label class="block text-xs font-bold text-gray-700 mb-1">Business Name *</label>
+              <input type="text" required class="w-full text-xs p-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-rum-500 focus:outline-none">
+            </div>
+
+            <div>
+              <label class="block text-xs font-bold text-gray-700 mb-1">Email Address *</label>
+              <input type="email" required class="w-full text-xs p-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-rum-500 focus:outline-none">
+            </div>
+
+            <div>
+              <label class="block text-xs font-bold text-gray-700 mb-1">Business Type *</label>
+              <select class="w-full text-xs p-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-rum-500 focus:outline-none">
+                <option>Resort / Hotel Shop</option>
+                <option>Gourmet Grocery / Specialty Food</option>
+                <option>Corporate Gift Planner</option>
+                <option>Event / Wedding Caterer</option>
+              </select>
+            </div>
+
+            <div class="sm:col-span-2">
+              <label class="block text-xs font-bold text-gray-700 mb-1">Estimated Order Volume & Notes</label>
+              <textarea rows="3" class="w-full text-xs p-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-rum-500 focus:outline-none" placeholder="Tell us about your estimated timeline, quantities, or customization requests..."></textarea>
+            </div>
+
+            <div class="sm:col-span-2">
+              <button type="submit" class="w-full bg-ocean-700 hover:bg-ocean-900 text-white font-bold py-3.5 rounded-xl transition text-xs tracking-wider uppercase">
+                Submit Wholesale Request
+              </button>
+            </div>
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== BAKERY & FULFILLMENT LOCATIONS ==================== -->
+  <section id="locations" class="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center max-w-2xl mx-auto mb-12">
+      <span class="text-xs font-bold text-ocean-700 uppercase tracking-widest">Store Locator & Pickup</span>
+      <h2 class="font-serif text-3xl sm:text-4xl font-bold text-rum-900 mt-1">Our Bakeries & Pickup Centers</h2>
+      <p class="text-sm text-gray-600 mt-2">Visit us in the islands or schedule local pickup at our South Florida distribution facilities.</p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      
+      <div class="bg-white p-6 rounded-2xl border border-rum-200 shadow-sm flex flex-col justify-between">
+        <div>
+          <span class="bg-amber-100 text-rum-800 text-[10px] font-bold px-2.5 py-1 rounded-md uppercase">Bahamas Flagship Factory</span>
+          <h3 class="font-serif font-bold text-xl text-rum-900 mt-3">Resorts World Bimini</h3>
+          <p class="text-xs text-gray-500 mt-1">North Bimini, The Bahamas</p>
+          <p class="text-xs text-gray-600 mt-3">Authentic island bakery offering fresh tastings, tours, and souvenir gift boxes.</p>
+        </div>
+        <div class="mt-6 pt-4 border-t text-xs font-bold text-ocean-700 flex justify-between items-center">
+          <span>Walk-In Bakery & Store</span>
+          <i data-lucide="map-pin" class="w-4 h-4"></i>
+        </div>
+      </div>
+
+      <div class="bg-white p-6 rounded-2xl border border-rum-200 shadow-sm flex flex-col justify-between">
+        <div>
+          <span class="bg-ocean-100 text-ocean-800 text-[10px] font-bold px-2.5 py-1 rounded-md uppercase">FL Distribution & Pickup</span>
+          <h3 class="font-serif font-bold text-xl text-rum-900 mt-3">Hollywood Pickup Center</h3>
+          <p class="text-xs text-gray-500 mt-1">Hollywood, FL 33020</p>
+          <p class="text-xs text-gray-600 mt-3">Distribution hub for fast U.S. express shipping and local pre-order pickup.</p>
+        </div>
+        <div class="mt-6 pt-4 border-t text-xs font-bold text-ocean-700 flex justify-between items-center">
+          <span>Order Pickup Available</span>
+          <i data-lucide="package" class="w-4 h-4"></i>
+        </div>
+      </div>
+
+      <div class="bg-white p-6 rounded-2xl border border-rum-200 shadow-sm flex flex-col justify-between">
+        <div>
+          <span class="bg-ocean-100 text-ocean-800 text-[10px] font-bold px-2.5 py-1 rounded-md uppercase">FL Operations</span>
+          <h3 class="font-serif font-bold text-xl text-rum-900 mt-3">South Miami Hub</h3>
+          <p class="text-xs text-gray-500 mt-1">Miami, FL 33143</p>
+          <p class="text-xs text-gray-600 mt-3">Corporate gifting fulfillment and domestic customer support center.</p>
+        </div>
+        <div class="mt-6 pt-4 border-t text-xs font-bold text-ocean-700 flex justify-between items-center">
+          <span>Fulfillment & Service</span>
+          <i data-lucide="phone" class="w-4 h-4"></i>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==================== FAQ ACCORDION ==================== -->
+  <section class="bg-sand border-t border-rum-200 py-16">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-10">
+        <h2 class="font-serif text-3xl font-bold text-rum-900">Frequently Asked Questions</h2>
+        <p class="text-xs text-gray-600 mt-1">Everything you need to know about ingredients, shelf life, and shipping.</p>
+      </div>
+
+      <div class="space-y-4" x-data="{ activeFaq: null }">
+        
+        <div class="bg-white rounded-xl border border-rum-200 overflow-hidden">
+          <button @click="activeFaq = activeFaq === 1 ? null : 1" class="w-full text-left p-4 font-serif font-bold text-rum-900 flex justify-between items-center text-base">
+            <span>Does Bahama Mama Rum Cake contain real alcohol?</span>
+            <i data-lucide="chevron-down" class="w-4 h-4 transition-transform" :class="activeFaq === 1 ? 'rotate-180' : ''"></i>
+          </button>
+          <div x-show="activeFaq === 1" x-cloak class="px-4 pb-4 text-xs text-gray-600 leading-relaxed border-t pt-2">
+            Yes! Our cakes are infused with authentic aged dark rum glaze. While much of the liquid alcohol cooks off during baking, residual alcohol content remains (approx. 2.5% ABV). We require customers to be 21+ to order.
+          </div>
+        </div>
+
+        <div class="bg-white rounded-xl border border-rum-200 overflow-hidden">
+          <button @click="activeFaq = activeFaq === 2 ? null : 2" class="w-full text-left p-4 font-serif font-bold text-rum-900 flex justify-between items-center text-base">
+            <span>What is the shelf life of the rum cakes?</span>
+            <i data-lucide="chevron-down" class="w-4 h-4 transition-transform" :class="activeFaq === 2 ? 'rotate-180' : ''"></i>
+          </button>
+          <div x-show="activeFaq === 2" x-cloak class="px-4 pb-4 text-xs text-gray-600 leading-relaxed border-t pt-2">
+            Unopened in our signature vacuum-sealed packaging, our rum cakes remain moist and fresh for up to 9 months at room temperature without preservatives. Refrigeration or freezing can extend freshness up to 12 months.
+          </div>
+        </div>
+
+        <div class="bg-white rounded-xl border border-rum-200 overflow-hidden">
+          <button @click="activeFaq = activeFaq === 3 ? null : 3" class="w-full text-left p-4 font-serif font-bold text-rum-900 flex justify-between items-center text-base">
+            <span>What are the allergen details?</span>
+            <i data-lucide="chevron-down" class="w-4 h-4 transition-transform" :class="activeFaq === 3 ? 'rotate-180' : ''"></i>
+          </button>
+          <div x-show="activeFaq === 3" x-cloak class="px-4 pb-4 text-xs text-gray-600 leading-relaxed border-t pt-2">
+            Our cakes contain wheat, eggs, and milk. Specific flavors (such as Vanilla Pecan and Carrot) contain tree nuts (pecans/walnuts). All products are prepared in facilities that handle dairy, flour, and nuts.
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer class="bg-rum-900 text-amber-100/80 pt-16 pb-8 border-t border-rum-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 pb-12 border-b border-rum-800">
+        
+        <!-- Brand Intro -->
+        <div class="lg:col-span-2 space-y-4">
+          <span class="font-serif text-2xl font-bold text-white tracking-tight">BAHAMA MAMA RUM CAKES</span>
+          <p class="text-xs text-amber-200/70 max-w-sm leading-relaxed">
+            Bringing the authentic taste of Nassau and Bimini to cake lovers worldwide. Handcrafted with real aged rum, slow glazed, and vacuum-sealed for peak freshness.
+          </p>
+          <div class="flex items-center space-x-3 text-white">
+            <a href="#" class="p-2 bg-rum-800 rounded-full hover:bg-rum-700" aria-label="Instagram"><i data-lucide="instagram" class="w-4 h-4"></i></a>
+            <a href="#" class="p-2 bg-rum-800 rounded-full hover:bg-rum-700" aria-label="Facebook"><i data-lucide="facebook" class="w-4 h-4"></i></a>
+            <a href="https://wa.me/13058427856" target="_blank" class="p-2 bg-green-700 rounded-full hover:bg-green-600" aria-label="WhatsApp Concierge"><i data-lucide="message-circle" class="w-4 h-4"></i></a>
+          </div>
+        </div>
+
+        <!-- Links Columns -->
+        <div>
+          <h4 class="font-serif font-bold text-white text-sm mb-3">Shop Flavors</h4>
+          <ul class="space-y-2 text-xs">
+            <li><a href="#flavors" class="hover:text-white">Original Bahamian</a></li>
+            <li><a href="#flavors" class="hover:text-white">Piña Colada</a></li>
+            <li><a href="#flavors" class="hover:text-white">Vanilla Pecan</a></li>
+            <li><a href="#flavors" class="hover:text-white">Haitian Cremas</a></li>
+            <li><a href="#sampler" class="hover:text-white">6-Pack Sampler</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="font-serif font-bold text-white text-sm mb-3">Customer Service</h4>
+          <ul class="space-y-2 text-xs">
+            <li><a href="#locations" class="hover:text-white">Track Your Order</a></li>
+            <li><a href="#locations" class="hover:text-white">Shipping Policy</a></li>
+            <li><a href="#locations" class="hover:text-white">Bakery Locations</a></li>
+            <li><a href="#wholesale" class="hover:text-white">Wholesale Inquiries</a></li>
+            <li><a href="tel:3058427856" class="hover:text-white">Call/Text: (305) 842-7856</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="font-serif font-bold text-white text-sm mb-3">Island VIP Club</h4>
+          <p class="text-xs text-amber-200/70 mb-3">Receive exclusive promos & new seasonal flavor releases.</p>
+          <div class="flex">
+            <input type="email" placeholder="Enter email..." class="w-full text-xs p-2.5 rounded-l-lg bg-rum-800 border-none text-white focus:outline-none">
+            <button class="bg-coral-500 hover:bg-coral-600 text-white font-bold px-3 text-xs rounded-r-lg">Join</button>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Legal & Copyright -->
+      <div class="pt-8 flex flex-col md:flex-row justify-between items-center text-xs text-amber-200/50 space-y-4 md:space-y-0">
+        <p>© 2026 Bahama Mama Rum Cakes. All rights reserved. Infused with authentic Caribbean rum.</p>
+        <div class="flex space-x-4">
+          <a href="#" class="hover:underline">Privacy Policy</a>
+          <a href="#" class="hover:underline">Terms of Service</a>
+          <a href="#" class="hover:underline">21+ Notice</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ==================== CART DRAWER ==================== -->
+  <div x-show="cartDrawerOpen" x-cloak class="fixed inset-0 z-50 overflow-hidden">
+    <div @click="cartDrawerOpen = false" class="absolute inset-0 bg-espresso/60 backdrop-blur-xs transition-opacity"></div>
+
+    <div class="fixed inset-y-0 right-0 max-w-full flex pl-10">
+      <div class="w-screen max-w-md bg-white shadow-2xl flex flex-col">
+        
+        <!-- Cart Header -->
+        <div class="p-5 bg-sand border-b border-rum-200 flex justify-between items-center">
+          <div class="flex items-center space-x-2">
+            <i data-lucide="shopping-bag" class="w-5 h-5 text-rum-900"></i>
+            <h3 class="font-serif font-bold text-lg text-rum-900">Your Island Cart</h3>
+            <span class="text-xs bg-rum-200 text-rum-900 font-bold px-2 py-0.5 rounded-full" x-text="cartTotalCount()"></span>
+          </div>
+          <button @click="cartDrawerOpen = false" class="text-gray-500 hover:text-gray-800">
+            <i data-lucide="x" class="w-5 h-5"></i>
+          </button>
+        </div>
+
+        <!-- Cart Items List -->
+        <div class="flex-1 overflow-y-auto p-5 space-y-4 custom-scrollbar">
+          <template x-for="(item, index) in cart" :key="index">
+            <div class="flex space-x-4 p-3 bg-sand/50 rounded-xl border border-rum-100">
+              <img :src="item.image" :alt="item.title" class="w-16 h-16 object-cover rounded-lg">
+              <div class="flex-1">
+                <div class="flex justify-between font-bold text-sm text-rum-900">
+                  <h4 x-text="item.title"></h4>
+                  <span x-text="'$' + (item.price * item.qty).toFixed(2)"></span>
+                </div>
+                <p class="text-[11px] text-gray-500" x-text="item.selectedSize || '4 oz Personal'"></p>
+                
+                <div class="flex items-center justify-between mt-2">
+                  <div class="flex items-center space-x-2 border rounded-lg bg-white px-2 py-0.5 text-xs">
+                    <button @click="updateQty(index, -1)" class="text-gray-500 hover:text-black">-</button>
+                    <span x-text="item.qty" class="font-bold px-1"></span>
+                    <button @click="updateQty(index, 1)" class="text-gray-500 hover:text-black">+</button>
+                  </div>
+                  <button @click="removeItem(index)" class="text-xs text-red-500 hover:underline">Remove</button>
+                </div>
+              </div>
+            </div>
+          </template>
+
+          <template x-if="cart.length === 0">
+            <div class="text-center py-16 space-y-3">
+              <i data-lucide="shopping-cart" class="w-12 h-12 text-gray-300 mx-auto"></i>
+              <p class="font-serif text-lg font-bold text-gray-500">Your cart is empty</p>
+              <p class="text-xs text-gray-400">Discover our 27 authentic rum cake flavors and build your sampler.</p>
+              <button @click="cartDrawerOpen = false" class="bg-rum-900 text-white font-bold text-xs px-6 py-2.5 rounded-xl">Start Shopping</button>
+            </div>
+          </template>
+        </div>
+
+        <!-- Cart Summary Footer -->
+        <div x-show="cart.length > 0" class="p-5 border-t border-gray-200 bg-sand/30 space-y-3">
+          <div class="flex justify-between text-sm">
+            <span class="text-gray-600">Subtotal</span>
+            <span class="font-bold text-rum-900 text-base" x-text="'$' + cartSubtotal().toFixed(2)"></span>
+          </div>
+          <p class="text-[11px] text-gray-500">Shipping, handling ($1.95), and taxes calculated at checkout.</p>
+          
+          <button @click="simulateCheckout()" class="w-full bg-coral-500 hover:bg-coral-600 text-white font-bold py-3.5 rounded-xl shadow-lg transition flex items-center justify-center space-x-2">
+            <i data-lucide="lock" class="w-4 h-4"></i>
+            <span>PROCEED TO SECURE CHECKOUT</span>
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== QUICK VIEW MODAL ==================== -->
+  <div x-show="quickViewOpen" x-cloak class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-espresso/70 backdrop-blur-xs">
+    <div @click.away="quickViewOpen = false" class="bg-white max-w-2xl w-full rounded-3xl overflow-hidden shadow-2xl border border-rum-200 relative">
+      <button @click="quickViewOpen = false" class="absolute top-4 right-4 z-10 bg-white/80 p-1.5 rounded-full hover:bg-white">
+        <i data-lucide="x" class="w-5 h-5 text-gray-700"></i>
+      </button>
+
+      <template x-if="activeProduct">
+        <div class="grid grid-cols-1 md:grid-cols-2">
+          <img :src="activeProduct.image" :alt="activeProduct.title" class="w-full h-72 md:h-full object-cover">
+          <div class="p-6 flex flex-col justify-between space-y-4">
+            <div>
+              <span class="text-[10px] font-bold text-ocean-700 uppercase tracking-widest" x-text="activeProduct.badge || 'Signature Flavor'"></span>
+              <h3 class="font-serif text-2xl font-bold text-rum-900 mt-1" x-text="activeProduct.title"></h3>
+              <p class="text-xs text-gray-600 mt-2" x-text="activeProduct.descriptor"></p>
+
+              <div class="mt-4 pt-3 border-t border-gray-100 space-y-2 text-xs text-gray-500">
+                <div class="flex items-center space-x-1.5"><i data-lucide="check" class="w-3.5 h-3.5 text-green-600"></i> <span>2.5% ABV Premium Aged Rum</span></div>
+                <div class="flex items-center space-x-1.5"><i data-lucide="check" class="w-3.5 h-3.5 text-green-600"></i> <span>9-Month Vacuum Freshness</span></div>
+                <div class="flex items-center space-x-1.5"><i data-lucide="check" class="w-3.5 h-3.5 text-green-600"></i> <span>Contains Wheat, Eggs, Milk</span></div>
+              </div>
+            </div>
+
+            <div>
+              <div class="flex items-baseline justify-between mb-3">
+                <span class="text-2xl font-bold text-rum-900" x-text="'$' + activeProduct.price.toFixed(2)"></span>
+                <span class="text-xs text-amber-600">★ <span x-text="activeProduct.rating"></span> (<span x-text="activeProduct.reviews"></span>)</span>
+              </div>
+
+              <button @click="addToCart(activeProduct); quickViewOpen = false" class="w-full bg-coral-500 hover:bg-coral-600 text-white font-bold py-3 rounded-xl transition">
+                Add to Cart
+              </button>
+            </div>
+          </div>
+        </div>
+      </template>
+    </div>
+  </div>
+
+  <!-- Floating WhatsApp Concierge Button -->
+  <a href="https://wa.me/13058427856" target="_blank" 
+     class="fixed bottom-6 right-6 bg-green-600 text-white p-3.5 rounded-full shadow-2xl hover:bg-green-700 transition z-40 flex items-center space-x-2 text-xs font-bold"
+     title="Questions? Chat on WhatsApp">
+    <i data-lucide="message-circle" class="w-5 h-5"></i>
+    <span class="hidden sm:inline">Ask Bakery Concierge</span>
+  </a>
+
+  <!-- ==================== ALPINE STORE LOGIC ==================== -->
+  <script>
+    function shopStore() {
+      return {
+        mobileMenuOpen: false,
+        cartDrawerOpen: false,
+        searchOpen: false,
+        quickViewOpen: false,
+        searchQuery: '',
+        activeCategory: 'all',
+        activeProduct: null,
+        samplerList: ['Original Bahamian', 'Piña Colada', 'Vanilla Pecan'],
+        
+        // Comprehensive Product Catalog (Rum Cakes + Caribbean Pantry)
+        products: [
+          { id: 1, title: 'Original Bahamian Rum Cake', category: 'classic', price: 10.00, badge: 'Best Seller', rating: '4.9', reviews: 142, isSoldOut: false, image: 'https://images.unsplash.com/photo-1588195538326-c5b1e9f80a1b?auto=format&fit=crop&w=600&q=80', descriptor: 'Traditional golden pound cake deeply soaked in aged dark rum glaze.' },
+          { id: 2, title: 'Piña Colada Rum Cake', category: 'fruity', price: 10.00, badge: 'Tropical Classic', rating: '4.8', reviews: 98, isSoldOut: false, image: 'https://images.unsplash.com/photo-1535141192574-5d4897c13136?auto=format&fit=crop&w=600&q=80', descriptor: 'Infused with sweet coconut cream, crushed gold pineapple, and light rum.' },
+          { id: 3, title: 'Vanilla Pecan Rum Cake', category: 'spiced', price: 10.00, badge: 'Staff Favorite', rating: '4.9', reviews: 115, isSoldOut: false, image: 'https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=600&q=80', descriptor: 'Rich vanilla cake studded with toasted pecans and rum-butter finish.' },
+          { id: 4, title: 'Haitian Cremas Rum Cake', category: 'creamy', price: 10.00, badge: 'Artisanal Spec', rating: '5.0', reviews: 64, isSoldOut: false, image: 'https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=600&q=80', descriptor: 'Inspired by traditional Kremas: condensed milk, coconut, cinnamon & star anise.' },
+          { id: 5, title: 'Red Velvet Rum Cake', category: 'decadent', price: 10.00, badge: 'Popular Gift', rating: '4.7', reviews: 88, isSoldOut: false, image: 'https://images.unsplash.com/photo-1586788680434-30d324b2d46f?auto=format&fit=crop&w=600&q=80', descriptor: 'Velvety cocoa cake infused with rum and subtle sweet cream notes.' },
+          { id: 6, title: 'Amaretto Rum Cake', category: 'creamy', price: 10.00, badge: '', rating: '4.8', reviews: 52, isSoldOut: false, image: 'https://images.unsplash.com/photo-1563729784474-d77dbb933a9e?auto=format&fit=crop&w=600&q=80', descriptor: 'Smooth almond liqueur blended with dark rum soak.' },
+          { id: 7, title: 'Key Lime Rum Cake', category: 'fruity', price: 10.00, badge: 'Island Citrus', rating: '4.9', reviews: 73, isSoldOut: false, image: 'https://images.unsplash.com/photo-1519869325930-281384150729?auto=format&fit=crop&w=600&q=80', descriptor: 'Tangy Florida & Bahamian key lime juice paired with buttery rum sponge.' },
+          { id: 8, title: 'Cookies & Cream Rum Cake', category: 'decadent', price: 10.00, badge: '', rating: '4.6', reviews: 41, isSoldOut: false, image: 'https://images.unsplash.com/photo-1550617931-e17a7b70dce2?auto=format&fit=crop&w=600&q=80', descriptor: 'Vanilla cake folded with chocolate cookie crumbles and dark rum infusion.' },
+          
+          // Pantry Products
+          { id: 9, title: 'Bahamian Guava Duff', category: 'pantry', price: 18.00, badge: 'Heritage Bakery', rating: '4.9', reviews: 89, isSoldOut: false, image: 'https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=600&q=80', descriptor: 'Traditional rolled guava pastry served with sweet butter rum sauce.' },
+          { id: 10, title: 'Junkanoo Pepper Sauce', category: 'pantry', price: 12.00, badge: 'Authentic Spice', rating: '5.0', reviews: 110, isSoldOut: false, image: 'https://images.unsplash.com/photo-1581600140682-d4e68c8cde32?auto=format&fit=crop&w=600&q=80', descriptor: 'Fiery Scotch Bonnet peppers blended with island spices and mustard.' },
+          { id: 11, title: 'Goombay Curry Sauce', category: 'pantry', price: 12.00, badge: 'Gourmet Sauce', rating: '4.8', reviews: 34, isSoldOut: false, image: 'https://images.unsplash.com/photo-1540420773420-3366772f4999?auto=format&fit=crop&w=600&q=80', descriptor: 'Aromatic island curry sauce for seafood, chicken, and rice dishes.' },
+          { id: 12, title: 'Cinnamon Whipped Honey', category: 'pantry', price: 14.00, badge: 'Sweet Pantry', rating: '4.9', reviews: 56, isSoldOut: false, image: 'https://images.unsplash.com/photo-1587049352847-4a222e784d38?auto=format&fit=crop&w=600&q=80', descriptor: 'Raw wild honey whipped with Saigon cinnamon and vanilla bean.' }
+        ],
+
+        cart: [
+          { id: 1, title: 'Original Bahamian Rum Cake', price: 10.00, qty: 2, selectedSize: '4 oz Personal', image: 'https://images.unsplash.com/photo-1588195538326-c5b1e9f80a1b?auto=format&fit=crop&w=600&q=80' }
+        ],
+
+        initStore() {
+          lucide.createIcons();
+        },
+
+        filteredProducts() {
+          let list = this.products;
+          if (this.activeCategory !== 'all') {
+            list = list.filter(p => p.category === this.activeCategory);
+          }
+          if (this.searchQuery.trim() !== '') {
+            const q = this.searchQuery.toLowerCase();
+            list = list.filter(p => p.title.toLowerCase().includes(q) || p.descriptor.toLowerCase().includes(q));
+          }
+          return list;
+        },
+
+        addToCart(product) {
+          const existing = this.cart.find(item => item.id === product.id);
+          if (existing) {
+            existing.qty += 1;
+          } else {
+            this.cart.push({
+              id: product.id,
+              title: product.title,
+              price: product.price,
+              qty: 1,
+              selectedSize: '4 oz Personal',
+              image: product.image
+            });
+          }
+          this.cartDrawerOpen = true;
+          this.$nextTick(() => lucide.createIcons());
+        },
+
+        updateQty(index, delta) {
+          this.cart[index].qty += delta;
+          if (this.cart[index].qty <= 0) {
+            this.cart.splice(index, 1);
+          }
+        },
+
+        removeItem(index) {
+          this.cart.splice(index, 1);
+        },
+
+        cartTotalCount() {
+          return this.cart.reduce((sum, item) => sum + item.qty, 0);
+        },
+
+        cartSubtotal() {
+          return this.cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+        },
+
+        // Sampler Builder Logic
+        addToSampler(title) {
+          if (this.samplerList.length < 6) {
+            this.samplerList.push(title);
+          }
+        },
+
+        removeFromSampler(idx) {
+          this.samplerList.splice(idx, 1);
+        },
+
+        samplerCount(title) {
+          return this.samplerList.filter(x => x === title).length;
+        },
+
+        addSamplerToCart() {
+          if (this.samplerList.length === 6) {
+            this.cart.push({
+              id: 99,
+              title: 'Custom 6-Pack Sampler Box',
+              price: 37.75,
+              qty: 1,
+              selectedSize: '6 x 4oz Assorted',
+              image: 'https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=600&q=80'
+            });
+            this.cartDrawerOpen = true;
+          }
+        },
+
+        openQuickView(product) {
+          this.activeProduct = product;
+          this.quickViewOpen = true;
+          this.$nextTick(() => lucide.createIcons());
+        },
+
+        copyCode(code) {
+          navigator.clipboard.writeText(code);
+          alert('Promo code ' + code + ' copied to clipboard!');
+        },
+
+        submitWholesale() {
+          alert('Thank you for your inquiry! Our wholesale team will respond within 1 business day.');
+        },
+
+        simulateCheckout() {
+          alert('Redirecting to Shopify Secure Checkout...');
+        }
+      }
+    }
+  </script>
+</body>
+</html>
